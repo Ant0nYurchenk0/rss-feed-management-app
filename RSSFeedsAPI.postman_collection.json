@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "4086ba03-ca15-4345-8128-8dc02e735d0e",
+		"name": "RSSFeedsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20884068"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const user = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has properties\", function () {\r",
+							"    pm.expect(user).to.have.property('username');\r",
+							"    pm.expect(user).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"if (pm.test(\"Has properties\")) {\r",
+							"    pm.globals.set('token', user.token);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"username\",\r\n\t\"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/account/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const user = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has properties\", function () {\r",
+							"    pm.expect(user).to.have.property('username');\r",
+							"    pm.expect(user).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"if (pm.test(\"Has properties\")) {\r",
+							"    pm.globals.set('token', user.token);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"username\",\r\n\t\"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/account/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Feed",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/feeds?url=https://rss.art19.com/apology-line&url=https://feeds.simplecast.com/54nAGcIl",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"feeds"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://medium.com/@javinpaul/feed",
+							"disabled": true
+						},
+						{
+							"key": "url",
+							"value": "https://rss.art19.com/apology-line"
+						},
+						{
+							"key": "url",
+							"value": "https://feeds.simplecast.com/54nAGcIl"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Feeds",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/feeds",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"feeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Unread News From Date",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/feeds/get-news/?date=2023-01-29T00:00:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"feeds",
+						"get-news",
+						""
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2023-01-29T00:00:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read News",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/news?id=https://medium.com/p/9eb5c1d8f39f",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"news"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "https://medium.com/p/9eb5c1d8f39f"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:7000"
+		}
+	]
+}
